@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var _s = require("underscore.string");
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var request = require('request');
@@ -41,7 +42,8 @@ app.get('/', function(req, res){
 				return row.length <= 1 // remove blank rows
 			})
 			.map(function(row){ // convert each row into an object with named properties
-				return _.object(headerRow, row)
+				var cleanedRow = _.map(row, function(string) { return _s.trim(string, '"') }); // remove surrounding quotes
+				return _.object(headerRow, cleanedRow)
 			})
 			.map(function(trainDetails){
 				return {
