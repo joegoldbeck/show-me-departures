@@ -37,7 +37,7 @@ app.get('/', function(req, res){
 
 		var dataRows = _.rest(responseArray);
 
-		var trainObjects = _.chain(dataRows)
+		var departureDataByOrigin = _.chain(dataRows)
 			.reject(function(row){
 				return row.length <= 1 // remove blank rows
 			})
@@ -45,7 +45,7 @@ app.get('/', function(req, res){
 				var cleanedRow = _.map(row, function(string) { return _s.trim(string, '"') }); // remove surrounding quotes
 				return _.object(headerRow, cleanedRow)
 			})
-			.map(function(trainDetails){
+			.map(function(trainDetails){ // format and group data for display of train information
 				return {
 					time: moment(trainDetails.ScheduledTime * 1000).tz("America/New_York").format('h:mm a'),
 					origin: trainDetails.Origin,
@@ -56,9 +56,16 @@ app.get('/', function(req, res){
 						'Delayed By ' + Math.round(trainDetails.Lateness / 60) + ' minutes' : trainDetails.Status
 				}
 			})
+			.groupBy('origin') // separate train information by origin
+			.map(function(trainObjects, origin){
+				return {
+					origin: origin,
+					trainObjects: trainObjects
+				}
+			})
 			.value()
 
-		res.render('departures', {trainObjects: trainObjects});
+		res.render('departures', {departureDataByOrigin: departureDataByOrigin});
 	})
 });
 

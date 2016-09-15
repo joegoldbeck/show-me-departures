@@ -1,21 +1,22 @@
 <h1>MBTA Commuter Rail Departure Times</h1>
-<table>
-  <tr>
-    <th>Time</th>
-    <th>Origin</th>
-    <th>Destination</th>
-    <th>Train#</th>
-    <th>Track#</th>
-    <th>Status</th>
-  </tr>
-  {{#each trainObjects}}
-  	<tr>
-  		<td>{{time}}</td>
-		<td>{{origin}}</td>
-		<td>{{destination}}</td>
-		<td>{{train}}</td>
-		<td>{{track}}</td>
-		<td>{{status}}</td>
-  	</tr>
-  {{/each}}
-</table>
+{{#each departureDataByOrigin}}
+	<h2>{{origin}}</h2>
+	<table>
+		<tr>
+			<th>Time</th>
+			<th>Destination</th>
+			<th>Train#</th>
+			<th>Track#</th>
+			<th>Status</th>
+		</tr>
+		{{#each trainObjects}}
+			<tr>
+				<td>{{time}}</td>
+				<td>{{destination}}</td>
+				<td>{{train}}</td>
+				<td>{{track}}</td>
+				<td>{{status}}</td>
+			</tr>
+		{{/each}}
+	</table>
+{{/each}}
