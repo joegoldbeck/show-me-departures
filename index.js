@@ -18,7 +18,7 @@ app.get('/', function(req, res){
 		res.setHeader("content-type", "text/html");
 		if(err || response.statusCode !== 200){
 			console.error('Error: Departures csv is unavailable');
-			return res.status(500).send("<body><p>Sorry, we had trouble getting that information. Please try again shortly.</p></body>")
+			return res.status(500).render("error");
 		}
 
 		// Note: can factor this out into a function for unit testing
@@ -32,7 +32,7 @@ app.get('/', function(req, res){
 		// check that all required info is here
 		if (!_.isEmpty(_.difference(expectedColumns, headerRow))){
 			console.error('Error: Departures csv is missing required columns');
-			return res.status(500).send("<body><p>Sorry, we had trouble getting that information. Please try again shortly.</p></body>")
+			return res.status(500).render("error");
 		}
 
 		var dataRows = _.rest(responseArray);
