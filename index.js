@@ -56,12 +56,8 @@ app.get('/', function(req, res){
 			})
 			.value()
 
-		// template here
-
-		// res.send(trainObjects)
-
 		res.render('departures', {trainObjects: trainObjects});
 	})
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
