@@ -1,0 +1,22 @@
+{
+  "name": "show-me-departures",
+  "version": "0.2.0",
+  "description": "Show MBTA commuter rail departure times",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "underscore": "1.8.x",
+    "express": "4.14.x",
+    "express-handlebars": "3.0.x",
+    "request": "2.74.x",
+    "moment": "2.15.x",
+    "moment-timezone": "0.5.x"
+  },
+  "engines": {
+    "node": "4.5.0"
+  },
+  "author": "Joseph Goldbeck",
+  "license": "MIT"
+}
